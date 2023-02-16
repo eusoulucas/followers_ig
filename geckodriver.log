@@ -1177,3 +1177,18 @@ console.warn: LoginRecipes: "Falling back to a synchronous message for: https://
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.instagram.com."
 JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
 JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1676324645999	geckodriver	INFO	Listening on 127.0.0.1:53276
+1676324649089	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53277" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilecUs6BI"
+1676324649497	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1676324649503	Marionette	INFO	Listening on port 53284
+Read port: 53284
+WebDriver BiDi listening on ws://127.0.0.1:53277
+1676324649736	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilecUs6BI\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:53277/devtools/browser/d7733891-3a94-4d1f-86c0-81e8cc583c32
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.instagram.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.instagram.com."
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
