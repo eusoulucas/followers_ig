@@ -3434,3 +3434,32 @@ console.error: "Unable to find target with innerWindowId:4294967298"
 console.error: "Unable to find target with innerWindowId:4294967298"
 JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
 1676589631939	geckodriver	INFO	Listening on 127.0.0.1:50564
+1676589634998	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50565" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilembLXSU"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1676589635414	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1676589635421	Marionette	INFO	Listening on port 50572
+Read port: 50572
+WebDriver BiDi listening on ws://127.0.0.1:50565
+1676589635651	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilembLXSU\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:50565/devtools/browser/ad1e6381-8144-49d8-a3f6-5c5c77a34099
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.instagram.com."
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1676589699222	geckodriver	INFO	Listening on 127.0.0.1:50630
+1676589702300	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50631" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilew3poLO"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1676589702707	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1676589702713	Marionette	INFO	Listening on port 50638
+Read port: 50638
+WebDriver BiDi listening on ws://127.0.0.1:50631
+1676589702934	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\lucad\\AppData\\Local\\Temp\\rust_mozprofilew3poLO\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:50631/devtools/browser/5a4d661d-6e0b-4da1-aab8-4ac14ede040b
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.instagram.com."
+JavaScript warning: https://static.cdninstagram.com/rsrc.php/v3i5g_4/yZ/l/pt_BR/973C3Yuj7pH.js?_nc_x=Ij3Wp8lg5Kz, line 28: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
