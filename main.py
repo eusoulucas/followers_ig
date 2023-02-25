@@ -7,27 +7,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from tqdm import tqdm
 
 def listar_seguidores(n):
-        seguidores = []
-        account = str(username)
-        accounts = []
+    accounts = []
 
-        print('Followers of the "{}" account'.format(account))
-        try:
-            for follower in scrape_followers(n):
-                print(follower)
-        except Exception as e:
-            print(e)
-
-        seguidores = driver.find_elements(By.XPATH, '/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/div[2]/div[1]/div/div/div/div/a/span/div')
-
-        for seguidor in seguidores:
-            accounts.append(seguidor.text)
-        
-        return accounts
-
-            
-
-def scrape_followers(n):
+    account = str(username)
+    print('Followers of the "{}" account'.format(account))
     follower_css = "div._ab9-:nth-child({})"
     for group in tqdm(range(1, n, 12)):  # Scrape 100 followers in groups of 10
         for follower_index in range(group, group + 12):
@@ -35,11 +18,19 @@ def scrape_followers(n):
                 # Scroll to the last follower in the group
                 last_follower = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, follower_css.format(follower_index))))
-                    
+                
                 driver.execute_script("arguments[0].scrollIntoView();", last_follower)
+                accounts.append(last_follower.text)
+
             except Exception as e:
                 print(e)
+                accounts.append(last_follower.text)
+    return accounts
 
+
+def get_first_element(string):
+    return string.split("\n")[0]
+            
 
 followers_list = []
 following_list = []
@@ -53,6 +44,17 @@ driver = webdriver.Firefox()
 driver.get("https://www.instagram.com/accounts/login/")
 time.sleep(10)
 
+'''
+try:
+    #Closing popup
+    cookies_bt = driver.find_elements(By.XPATH, "//button[text()='Permitir apenas cookies essenciais']")
+    #print(cookies_bt)
+    cookies_bt[0].click()
+    time.sleep(5)
+except Exception as e:
+    print(e)
+'''
+
 # Enter the user's Instagram username and password
 username_field = driver.find_element(By.CSS_SELECTOR, "input[name='username']")
 password_field = driver.find_element(By.CSS_SELECTOR, "input[name='password']")
@@ -63,17 +65,16 @@ time.sleep(10)
 
 # Navigate to the user's profile and get their followers
 driver.get(f"https://www.instagram.com/{username}")
-time.sleep(5)
-
-cookies_bt = driver.find_element(By.CLASS_NAME, '_a9-- _a9_1')
-cookies_bt.click()
+time.sleep(10)
 
 count = driver.find_elements(By.CLASS_NAME, '_ac2a')
 n_follower = int(count[1].text.replace('.',''))
 n_following = int(count[2].text.replace('.',''))
+time.sleep(5)
 
-# Navigate to the user's profile and get their followers
-driver.get(f"https://www.instagram.com/{username}/followers")
+follows = driver.find_elements(By.XPATH, '//a[@href="/{}/followers/"]'.format(username))
+print(follows[0])
+follows[0].click()
 time.sleep(5)
 
 followers_list = listar_seguidores(n_follower)
@@ -84,12 +85,16 @@ time.sleep(2)
 
 following_list = listar_seguidores(n_following)
 
+followers_list_clean = [get_first_element(s) for s in followers_list]
+following_list_clean = [get_first_element(s) for s in following_list]
+
 # Identify the users the user is following that are not following them back
-not_following_back = [user for user in following_list if user not in followers_list]
+not_following_back = [user for user in following_list_clean if user not in followers_list_clean]
 
 # Print the list of users the user is following that are not following them back
 print("Users you're following that are not following you back:")
-print(not_following_back)
+for people in not_following_back:
+    print(people)
 
 # Close the Firefox webdriver
 driver.quit()
