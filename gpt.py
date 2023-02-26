@@ -13,43 +13,50 @@ PASSWORD = '109109Lucas!!'
 PREVIOUS_FOLLOWERS_FILE = 'dados/previous_followers.txt'
 
 # Initialize the Chrome browser and navigate to Instagram
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 driver.get('https://www.instagram.com/')
 
+# Creating a waiter
+wait = WebDriverWait(driver, 10)
+
 # Log in to Instagram
-username_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'username')))
-password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'password')))
+username_field = wait.until(EC.presence_of_element_located((By.NAME, 'username')))
+password_field = wait.until(EC.presence_of_element_located((By.NAME, 'password')))
 username_field.send_keys(USERNAME)
 password_field.send_keys(PASSWORD)
-login_button = driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[3]/button')
+login_button = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm"]/div/div[3]/button')))
 login_button.click()
 
-# Wait for the login process to complete
-not_now_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Not Now"]')))
-not_now_button.click()
+for i in range(2):
+    try:
+        # Wait for the login process to complete
+        not_now_button = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Not Now"]')))
+        not_now_button.click()
 
-try:
-    # Wait for the login process to complete
-    not_now_button_notifications = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Not Now"]')))
-    not_now_button_notifications.click()
-except Exception as e:
-    print(e)
+    except Exception as e:
+        # Wait for the login process to complete
+        not_now_button = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Agora não"]')))
+        not_now_button.click()
+
 
 # Navigate to your profile page
-profile_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[@href="/' + USERNAME + '/"]')))
+profile_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//a[@href="/' + USERNAME + '/"]')))
 profile_button.click()
 
 # Wait for the profile page to load
-followers_button = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//a[@href="/' + USERNAME + '/followers/"]')))
+followers_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//a[@href="/' + USERNAME + '/followers/"]')))
+# //*[@id="mount_0_0_yx"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div/header/section/ul/li[2]/a
 
 # Retrieve the current list of followers
+time.sleep(5)
 followers_button.click()
 
 # get the followers list element
-followers_list = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, '_aano')))
+time.sleep(5)
+followers_list = driver.find_element(By.CLASS_NAME, '_aano')
 
 # get the initial number of followers in the list
-prev_count = len(driver.find_elements(By.XPATH, '//*[@id="mount_0_0_Yo"]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]'))
+prev_count = len(followers_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
 
 # scroll to the bottom of the list until no more followers are loaded
 while True:
@@ -58,7 +65,7 @@ while True:
     time.sleep(2) # wait for the next set of followers to load
 
     # get the new number of followers in the list
-    curr_count = len(followers_list.find_elements(By.CSS_SELECTOR, 'li'))
+    curr_count = len(followers_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
     print(prev_count)
     print(curr_count)
 
@@ -68,7 +75,7 @@ while True:
 
     prev_count = curr_count
 
-followers = followers_list.find_elements(By.CSS_SELECTOR,'li')
+followers = followers_list.find_elements(By.CLASS_NAME, 'xt0psk2')
 
 current_followers = set()
 for follower in followers:
