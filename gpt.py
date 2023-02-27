@@ -5,6 +5,49 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+
+def scraping(categorie):
+    prev_count = 0
+    curr_count = 0
+
+    # Wait for the profile page to load
+    driver.get(url + USERNAME + '/'+ categorie +'/')
+
+    # get the users list element
+    time.sleep(5)
+    users_list = driver.find_element(By.CLASS_NAME, '_aano')
+
+    # get the initial number of followers in the list
+    prev_count = len(users_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
+
+    # scroll to the bottom of the list until no more followers are loaded
+    while True:
+        try:
+            # scroll to the bottom of the list
+            driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', users_list)
+            time.sleep(5) # wait for the next set of followers to load
+
+            # get the new number of followers in the list
+            curr_count = len(users_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
+            
+            if curr_count <= prev_count:
+                break
+            prev_count = curr_count
+
+        except Exception as e:
+            print(e)
+            break
+
+    users = users_list.find_elements(By.CLASS_NAME, 'xt0psk2')
+
+    current_users = []
+    for user in users:
+        current_users.append(user.text)
+    
+    lista_sem_duplicatas = list(set(current_users))
+
+    return lista_sem_duplicatas
+
 # Replace with your Instagram credentials
 USERNAME = 'luscasedu'
 PASSWORD = '109109Lucas!!'
@@ -14,7 +57,8 @@ PREVIOUS_FOLLOWERS_FILE = 'dados/previous_followers.txt'
 
 # Initialize the Chrome browser and navigate to Instagram
 driver = webdriver.Chrome()
-driver.get('https://www.instagram.com/')
+url = 'https://www.instagram.com/'
+driver.get(url)
 
 # Creating a waiter
 wait = WebDriverWait(driver, 10)
@@ -43,59 +87,18 @@ for i in range(2):
 profile_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//a[@href="/' + USERNAME + '/"]')))
 profile_button.click()
 
-# Wait for the profile page to load
-followers_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//a[@href="/' + USERNAME + '/followers/"]')))
-# //*[@id="mount_0_0_yx"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div/header/section/ul/li[2]/a
+following = scraping('following')
+followers = scraping('followers')
 
-# Retrieve the current list of followers
-time.sleep(5)
-followers_button.click()
+print('\n----------------------Followers------------------------')
+print(followers)
+print('\n----------------------Following------------------------')
+print(followers)
+print('\n')
 
-# get the followers list element
-time.sleep(5)
-followers_list = driver.find_element(By.CLASS_NAME, '_aano')
-
-# get the initial number of followers in the list
-prev_count = len(followers_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
-
-# scroll to the bottom of the list until no more followers are loaded
-while True:
-    # scroll to the bottom of the list
-    driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', followers_list)
-    time.sleep(2) # wait for the next set of followers to load
-
-    # get the new number of followers in the list
-    curr_count = len(followers_list.find_elements(By.CLASS_NAME, 'xt0psk2'))
-    print(prev_count)
-    print(curr_count)
-
-    # break the loop if no more followers are loaded
-    if curr_count == prev_count:
-        break
-
-    prev_count = curr_count
-
-followers = followers_list.find_elements(By.CLASS_NAME, 'xt0psk2')
-
-current_followers = set()
-for follower in followers:
-    link = follower.find_element(By.CSS_SELECTOR,'a').get_attribute('href')
-    username = link.split('/')[-2]
-    current_followers.add(username)
-
-# Compare the current list of followers to the previous list
-with open(PREVIOUS_FOLLOWERS_FILE, 'r') as f:
-    previous_followers = set(f.read().splitlines())
-
-new_followers = current_followers - previous_followers
-unfollowers = previous_followers - current_followers
-
-print(f'New followers: {new_followers}')
-print(f'Unfollowers: {unfollowers}')
-
-# Save the current list of followers as the previous list
-with open(PREVIOUS_FOLLOWERS_FILE, 'w') as f:
-    f.write('\n'.join(current_followers))
+for username in following:
+    if username not in followers:
+        print(username + " is not following you back.")
 
 # Quit the browser
 driver.quit()
