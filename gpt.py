@@ -49,8 +49,8 @@ def scraping(categorie):
     return lista_sem_duplicatas
 
 # Replace with your Instagram credentials
-USERNAME = 'luscasedu'
-PASSWORD = '109109Lucas!!'
+USERNAME = str(input('Digite o usuário:'))
+PASSWORD = str(input("Digite a senha:"))
 
 # Replace with the path to your previous list of followers
 PREVIOUS_FOLLOWERS_FILE = 'dados/previous_followers.txt'
